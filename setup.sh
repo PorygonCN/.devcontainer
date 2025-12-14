@@ -14,14 +14,16 @@ if [ ! -f "composer.json" ]; then
 
     composer create-project laravel/laravel tempLaravel --prefer-dist --no-interaction
 
-    mv tempLaravel/. ./
+    mv tempLaravel/* ./
+    mv tempLaravel/.* ./ 2>/dev/null
     rm -rf tempLaravel
     cp ./.devcontainer/.env .env
     php artisan migrate --force
 
-    if [ -d ".devcontainer/.git" ]; then
-        rm -rf .git
+    if [ -d "./.devcontainer/.git" ]; then
+        rm -rf ./.devcontainer/.git
     fi
+    
 fi
 
 
@@ -64,6 +66,6 @@ fi
 
 
 
-echo "✅ Setup complete! Your Laravel environment is ready.\n"
+echo "✅ Setup complete! Your Laravel environment is ready."
 echo "🌐 Access your app at: http://localhost"
 echo "📧 Mailpit at: http://localhost:8025"
