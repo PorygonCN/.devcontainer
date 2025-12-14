@@ -12,10 +12,16 @@ echo "🚀 Setting up Laravel development environment..."
 if [ ! -f "composer.json" ]; then
     echo "📦 Installing Laravel..."
 
-    composer create-project laravel/laravel . --prefer-dist --no-interaction
+    composer create-project laravel/laravel tempLaravel --prefer-dist --no-interaction
 
-    cp /var/www/.devcontainer/.env .env
+    mv tempLaravel/. ./
+    rm -rf tempLaravel
+    cp ./.devcontainer/.env .env
     php artisan migrate --force
+
+    if [ -d ".devcontainer/.git" ]; then
+        rm -rf .git
+    fi
 fi
 
 
@@ -56,9 +62,6 @@ if [ ! -d ".git" ]; then
     git init
 fi
 
-if [ ! -d ".devcontainer" ]; then
-    cp -r /var/www/.devcontainer/ ./.devcontainer 
-fi
 
 
 echo "✅ Setup complete! Your Laravel environment is ready.\n"

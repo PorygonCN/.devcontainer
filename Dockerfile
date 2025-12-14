@@ -91,8 +91,6 @@ RUN echo "zend_extension=xdebug" > "$PHP_INI_DIR/conf.d/xdebug.ini" \
 # 创建工作目录并设置权限
 RUN mkdir -p /var/www/html \
     && chown -R vscode:vscode /var/www/html \
-    && mkdir -p /var/www/.devcontainer \
-    && chown -R vscode:vscode /var/www/.devcontainer \
     && chown -R vscode:vscode /home/vscode
 
 # 运行supervisor 以管理员账户运行主进程

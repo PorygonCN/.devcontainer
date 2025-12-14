@@ -7,8 +7,7 @@ services:
         USER_UID: 1000
         USER_GID: 1000
     volumes:
-      - ../app:/var/www/html:cached
-      - ./:/var/www/.devcontainer
+      - ../:/var/www/html:cached
       - ./php/php.ini:/usr/local/etc/php/conf.d/99-custom.ini
       - ./supervisor/laravel-worker.conf:/etc/supervisor/conf.d/laravel-worker.conf
       - ~/.composer:/home/vscode/.composer:cached
@@ -30,7 +29,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ../app:/var/www/html:cached
+      - ../:/var/www/html:cached
       - ./nginx/laravel.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/ssl:/etc/nginx/ssl:ro
     networks:

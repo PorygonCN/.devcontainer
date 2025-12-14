@@ -85,7 +85,7 @@
     }
   },
 
-  "postCreateCommand": "bash /var/www/.devcontainer/setup.sh",
+  "postCreateCommand": "bash ./.devcontainer/setup.sh",
 
   "remoteEnv": {
     "APP_ENV": "local",
