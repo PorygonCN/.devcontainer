@@ -19,37 +19,16 @@ if [ ! -f "composer.json" ]; then
     rm -rf tempLaravel
     cp ./.devcontainer/.env .env
     php artisan migrate --force
-  
+
 fi
 
+echo "📝 Recreate storage:link..."
+if [ -f "artisan" ]; then
 
-# 安装 PHP 依赖
-if [ -f "composer.json" ]; then
-    if [ -f "artisan" ]; then
-        echo "🔧 Setting up Laravel..."
-        php artisan key:generate --no-interaction
-        
-        if [ ! -f "./public/storage" ]; then
-            php artisan storage:link --no-interaction
-        fi
-        
-        chmod -R 775 storage bootstrap/cache
-    fi
-fi
-
-
-# 安装 Node.js 依赖
-if [ -f "package.json" ]; then
-    echo "📦 Installing Node.js dependencies..."
-    npm install --no-audit --prefer-offline
+    php artisan storage:link --force --no-interaction 
     
-    # 如果是 Laravel 9+ 有 Vite
-    if [ -f "vite.config.js" ]; then
-        echo "⚡ Setting up Vite..."
-        npm run build
-    fi
+    chmod -R 775 storage bootstrap/cache
 fi
-
 
 # 如果没有就自动初始化Git仓库
 if [ ! -d ".git" ]; then
@@ -61,10 +40,10 @@ if [ ! -d ".git" ]; then
 fi
 
 if [ -d "./.devcontainer/.git" ]; then
-    rm -rf ./.devcontainer/.git
+    sudo rm -rf ./.devcontainer/.git
 fi
 
-
+su - vsocde
 
 echo "✅ Setup complete! Your Laravel environment is ready."
 echo "🌐 Access your app at: http://localhost"

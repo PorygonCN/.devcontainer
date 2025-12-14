@@ -17,6 +17,7 @@ RUN sed -i 's/security.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d
 
 # 安装基础工具
 RUN apt-get update && apt-get install -y \
+    sudo \
     # 图形处理依赖
     libpng-dev \
     libjpeg-dev \
@@ -77,7 +78,7 @@ RUN groupadd --gid ${USER_GID} vscode \
 
 
 # 配置 PHP
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
     && sed -i 's/^;error_log = .*/error_log = \/proc\/self\/fd\/2/' "$PHP_INI_DIR/php.ini"
 
 # 配置 Xdebug
