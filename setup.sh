@@ -19,11 +19,7 @@ if [ ! -f "composer.json" ]; then
     rm -rf tempLaravel
     cp ./.devcontainer/.env .env
     php artisan migrate --force
-
-    if [ -d "./.devcontainer/.git" ]; then
-        rm -rf ./.devcontainer/.git
-    fi
-    
+  
 fi
 
 
@@ -62,6 +58,10 @@ if [ ! -d ".git" ]; then
     git config --global pull.rebase false
     echo "📝 Init Git Repository..."
     git init
+fi
+
+if [ -d "./.devcontainer/.git" ]; then
+    rm -rf ./.devcontainer/.git
 fi
 
 
