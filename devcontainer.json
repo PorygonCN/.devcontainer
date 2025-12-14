@@ -1,0 +1,103 @@
+{
+  "name": "Laravel 12 Dev Environment",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/var/www/html",
+
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": { }
+  },
+  "initializeCommand": "git config --global --add safe.directory ${workspaceFolder}",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "php.validate.executablePath": "/usr/local/bin/php",
+        "php.executablePath": "/usr/local/bin/php",
+        "files.autoSave": "afterDelay",
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "editor.formatOnType": true,
+        "[css]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[html]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[jsonc]": {
+          "editor.defaultFormatter": "vscode.json-language-features"
+        },
+        "[php]": {
+          "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+        },
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[vue]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "Laravel.pint.runOnSave": true,
+        "tailwindCSS.emmetCompletions": true,
+        "tailwindCSS.includeLanguages": {
+          "plaintext": "html"
+        },
+        "git.enabled": true,
+        "git.autoRepositoryDetection": true,
+        "git.openRepositoryInParentFolders": "always",
+      },
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "mikestead.dotenv",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        "ardenivanov.svelte-intellisense",
+        "vue.volar",
+        "ms-azuretools.vscode-docker",
+        "laravel.vscode-laravel",
+        "chouzz.vscode-better-align",
+      ]
+    }
+  },
+
+  "forwardPorts": [ 80, 5173, 3306, 6379, 1025 ],
+  "portsAttributes": {
+    "80": {
+      "label": "Laravel App (HTTP)",
+      "onAutoForward": "openPreview"
+    },
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    },
+    "3306": {
+      "label": "MySQL Database"
+    },
+    "1025": {
+      "label": "Mailpit SMTP"
+    }
+  },
+
+  "postCreateCommand": "bash /var/www/.devcontainer/setup.sh",
+
+  "remoteEnv": {
+    "APP_ENV": "local",
+    "APP_DEBUG": "true",
+    "LOG_CHANNEL": "stderr",
+    "DB_HOST": "mysql",
+    "REDIS_HOST": "redis",
+    "MAIL_MAILER": "smtp",
+    "MAIL_HOST": "mailpit"
+  },
+
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,readonly"
+  ]
+}
